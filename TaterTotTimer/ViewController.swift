@@ -21,9 +21,10 @@ class ViewController: UIViewController {
     
     var totalNumberOfTots = Variable(5)
     var timerRunning = Variable(false)
-    var timer: NSTimer?
     var targetDate: NSDate?
     var degrees = 0.0
+    
+    var rx_timer_disposable: Disposable?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,8 +57,9 @@ class ViewController: UIViewController {
             }
             .subscribeNext { value in
                 self.startStopButton.setTitle("Start Timer", forState: .Normal)
-                self.timer?.invalidate()
-                self.timer = nil
+                self.rx_timer_disposable?.dispose()
+                self.rx_timer_disposable = nil
+                
                 self.targetDate = nil
                 self.cancelLocalNotifications()
                 self.totImage.transform = CGAffineTransformIdentity
@@ -76,6 +78,7 @@ class ViewController: UIViewController {
             }
             .subscribeNext { value in
                 self.startStopButton.setTitle("Stop Timer", forState: .Normal)
+
                 let dateComponents = NSDateComponents.init()
                 let calendar = NSCalendar.currentCalendar()
                 dateComponents.second = self.timeForNumberOfTots(self.totalNumberOfTots.value)
@@ -83,7 +86,14 @@ class ViewController: UIViewController {
                 self.refreshTotAndTimer()
                 
                 self.scheduleLocalNotification(self.targetDate!)
-                self.timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(ViewController.refreshTotAndTimer), userInfo: nil, repeats: true)
+                
+                self.rx_timer_disposable = Observable<Int>
+                    .timer(1.0, period: 1.0, scheduler: MainScheduler.instance)
+                    .subscribeNext({ seconds in
+                        self.refreshTotAndTimer()
+                    })
+                self.rx_timer_disposable?.addDisposableTo(self.disposeBag)
+                
                 
                 self.timerFace.hidden = false
                 self.totCountStepper.hidden = true
