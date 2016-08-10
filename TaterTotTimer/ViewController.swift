@@ -24,7 +24,7 @@ class ViewController: UIViewController {
     var targetDate: NSDate?
     var degrees = 0.0
     
-    var rx_timer_disposable: Disposable?
+    var timerDisposable: Disposable?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,8 +57,8 @@ class ViewController: UIViewController {
             }
             .subscribeNext { value in
                 self.startStopButton.setTitle("Start Timer", forState: .Normal)
-                self.rx_timer_disposable?.dispose()
-                self.rx_timer_disposable = nil
+                self.timerDisposable?.dispose()
+                self.timerDisposable = nil
                 
                 self.targetDate = nil
                 self.cancelLocalNotifications()
@@ -87,12 +87,12 @@ class ViewController: UIViewController {
                 
                 self.scheduleLocalNotification(self.targetDate!)
                 
-                self.rx_timer_disposable = Observable<Int>
+                self.timerDisposable = Observable<Int>
                     .timer(1.0, period: 1.0, scheduler: MainScheduler.instance)
                     .subscribeNext({ seconds in
                         self.refreshTotAndTimer()
                     })
-                self.rx_timer_disposable?.addDisposableTo(self.disposeBag)
+                self.timerDisposable?.addDisposableTo(self.disposeBag)
                 
                 
                 self.timerFace.hidden = false
