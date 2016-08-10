@@ -52,6 +52,22 @@ class ViewController: UIViewController {
         
         timerRunning
             .asObservable()
+            .map {!$0}
+            .bindTo(timerFace.rx_hidden)
+            .addDisposableTo(disposeBag)
+        
+        timerRunning
+            .asObservable()
+            .bindTo(totCountStepper.rx_hidden)
+            .addDisposableTo(disposeBag)
+        
+        timerRunning
+            .asObservable()
+            .bindTo(totCountLabel.rx_hidden)
+            .addDisposableTo(disposeBag)
+        
+        timerRunning
+            .asObservable()
             .filter {
                 $0 == false
             }
@@ -64,10 +80,6 @@ class ViewController: UIViewController {
                 self.cancelLocalNotifications()
                 self.totImage.transform = CGAffineTransformIdentity
                 self.degrees = 0.0
-                
-                self.timerFace.hidden = true
-                self.totCountStepper.hidden = false
-                self.totCountLabel.hidden = false
             }
             .addDisposableTo(disposeBag)
     
@@ -93,11 +105,6 @@ class ViewController: UIViewController {
                         self.refreshTotAndTimer()
                     })
                 self.timerDisposable?.addDisposableTo(self.disposeBag)
-                
-                
-                self.timerFace.hidden = false
-                self.totCountStepper.hidden = true
-                self.totCountLabel.hidden = true
             }
         .addDisposableTo(disposeBag)
     
