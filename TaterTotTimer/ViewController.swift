@@ -52,7 +52,9 @@ class ViewController: UIViewController {
         
         timerRunning
             .asObservable()
-            .map {!$0}
+            .map {
+                !$0
+            }
             .bindTo(timerFace.rx_hidden)
             .addDisposableTo(disposeBag)
         
@@ -68,11 +70,16 @@ class ViewController: UIViewController {
         
         timerRunning
             .asObservable()
+            .map { $0 ? "Stop Timer" : "Start Timer" }
+            .bindTo(startStopButton.rx_title(.Normal))
+            .addDisposableTo(disposeBag)
+        
+        timerRunning
+            .asObservable()
             .filter {
                 $0 == false
             }
             .subscribeNext { value in
-                self.startStopButton.setTitle("Start Timer", forState: .Normal)
                 self.timerDisposable?.dispose()
                 self.timerDisposable = nil
                 
@@ -89,22 +96,20 @@ class ViewController: UIViewController {
                 $0 == true
             }
             .subscribeNext { value in
-                self.startStopButton.setTitle("Stop Timer", forState: .Normal)
-
                 let dateComponents = NSDateComponents.init()
                 let calendar = NSCalendar.currentCalendar()
                 dateComponents.second = self.timeForNumberOfTots(self.totalNumberOfTots.value)
                 self.targetDate = calendar.dateByAddingComponents(dateComponents, toDate: NSDate.init(), options: [])
-                self.refreshTotAndTimer()
                 
                 self.scheduleLocalNotification(self.targetDate!)
                 
-                self.timerDisposable = Observable<Int>
-                    .timer(1.0, period: 1.0, scheduler: MainScheduler.instance)
+                let timer = Observable<Int>
+                    .timer(0.0, period: 1.0, scheduler: MainScheduler.instance)
                     .subscribeNext({ seconds in
                         self.refreshTotAndTimer()
                     })
-                self.timerDisposable?.addDisposableTo(self.disposeBag)
+                timer.addDisposableTo(self.disposeBag)
+                self.timerDisposable = timer
             }
         .addDisposableTo(disposeBag)
     
