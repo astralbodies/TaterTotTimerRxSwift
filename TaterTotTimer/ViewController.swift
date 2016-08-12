@@ -122,7 +122,7 @@ class ViewController: UIViewController {
         }
         
         degrees += 20
-        totImage.transform = CGAffineTransformMakeRotation(CGFloat(degrees * M_PI/180));
+        totImage.transform = CGAffineTransformMakeRotation(CGFloat(degrees * M_PI/180))
         
         let dateDiff = calendar.dateFromComponents(dateComponents)!
         let dateFormatter = NSDateFormatter()
@@ -134,11 +134,11 @@ class ViewController: UIViewController {
     
     func timeForNumberOfTots(numberOfTots:Int) -> Int {
         if (numberOfTots > 0 && numberOfTots <= 20) {
-            return 22 * 60;
+            return 22 * 60
         } else if (numberOfTots <= 30) {
-            return 24 * 60;
+            return 24 * 60
         } else {
-            return 26 * 60;
+            return 26 * 60
         }
     }
     
