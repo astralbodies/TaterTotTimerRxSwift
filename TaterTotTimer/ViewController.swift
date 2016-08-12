@@ -86,7 +86,7 @@ class ViewController: UIViewController {
             .addDisposableTo(disposeBag)
 
         Observable<Int>
-            .timer(0.0, period: 1.0, scheduler: MainScheduler.instance)
+            .timer(0.0, period: 0.1, scheduler: MainScheduler.instance)
             .pausable(timerRunning.asObservable())
             .subscribeNext({ seconds in
                 self.refreshTotAndTimer()
