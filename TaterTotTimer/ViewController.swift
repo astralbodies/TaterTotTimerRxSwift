@@ -80,16 +80,21 @@ class ViewController: UIViewController {
                 $0 == false
             }
             .subscribeNext { value in
-                self.timerDisposable?.dispose()
-                self.timerDisposable = nil
-                
                 self.targetDate = nil
                 self.cancelLocalNotifications()
                 self.totImage.transform = CGAffineTransformIdentity
                 self.degrees = 0.0
             }
             .addDisposableTo(disposeBag)
-    
+
+        Observable<Int>
+            .interval(1.0, scheduler: MainScheduler.instance)
+            .pausable(timerRunning.asObservable())
+            .subscribeNext({ seconds in
+                self.refreshTotAndTimer()
+            })
+            .addDisposableTo(self.disposeBag)
+
         timerRunning
             .asObservable()
             .filter {
@@ -102,16 +107,10 @@ class ViewController: UIViewController {
                 self.targetDate = calendar.dateByAddingComponents(dateComponents, toDate: NSDate.init(), options: [])
                 
                 self.scheduleLocalNotification(self.targetDate!)
-                
-                let timer = Observable<Int>
-                    .timer(0.0, period: 1.0, scheduler: MainScheduler.instance)
-                    .subscribeNext({ seconds in
-                        self.refreshTotAndTimer()
-                    })
-                timer.addDisposableTo(self.disposeBag)
-                self.timerDisposable = timer
             }
         .addDisposableTo(disposeBag)
+        
+        
     
     }
     

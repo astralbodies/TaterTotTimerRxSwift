@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		34DF4B027D0AD239F73D7A93 /* Pods_TaterTotTimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC916CFAB4868858547F9A1 /* Pods_TaterTotTimer.framework */; };
 		60BCAA714DDBFB7A83B69D7F /* Pods_TaterTotTimerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F448A874C09E6492EB15C871 /* Pods_TaterTotTimerTests.framework */; };
+		9331FB7C1D5D63DC00D233CA /* Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9331FB7B1D5D63DC00D233CA /* Rx.swift */; };
 		93EDA4B81BC310EF00BCC6F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EDA4B71BC310EF00BCC6F2 /* AppDelegate.swift */; };
 		93EDA4BA1BC310EF00BCC6F2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EDA4B91BC310EF00BCC6F2 /* ViewController.swift */; };
 		93EDA4BD1BC310EF00BCC6F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93EDA4BB1BC310EF00BCC6F2 /* Main.storyboard */; };
@@ -86,6 +87,7 @@
 		50E5AD89DBD63DD7EA1A9A44 /* Pods-TaterTotTimer WatchKit Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaterTotTimer WatchKit Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TaterTotTimer WatchKit Extension/Pods-TaterTotTimer WatchKit Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		66D928B23502B5AFB3E3910D /* Pods-TaterTotTimer WatchKit App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaterTotTimer WatchKit App.release.xcconfig"; path = "Pods/Target Support Files/Pods-TaterTotTimer WatchKit App/Pods-TaterTotTimer WatchKit App.release.xcconfig"; sourceTree = "<group>"; };
 		801D7AC85A1C56404AC9FF9B /* Pods_TaterTotTimer_WatchKit_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaterTotTimer_WatchKit_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9331FB7B1D5D63DC00D233CA /* Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rx.swift; sourceTree = "<group>"; };
 		93EDA4B41BC310EF00BCC6F2 /* TaterTotTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaterTotTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93EDA4B71BC310EF00BCC6F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93EDA4B91BC310EF00BCC6F2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				93EDA4BE1BC310EF00BCC6F2 /* Assets.xcassets */,
 				93EDA4C01BC310EF00BCC6F2 /* LaunchScreen.storyboard */,
 				93EDA4C31BC310EF00BCC6F2 /* Info.plist */,
+				9331FB7B1D5D63DC00D233CA /* Rx.swift */,
 			);
 			path = TaterTotTimer;
 			sourceTree = "<group>";
@@ -597,6 +600,7 @@
 			files = (
 				93EDA4BA1BC310EF00BCC6F2 /* ViewController.swift in Sources */,
 				93EDA4B81BC310EF00BCC6F2 /* AppDelegate.swift in Sources */,
+				9331FB7C1D5D63DC00D233CA /* Rx.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
