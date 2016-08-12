@@ -24,8 +24,6 @@ class ViewController: UIViewController {
     var targetDate: NSDate?
     var degrees = 0.0
     
-    var timerDisposable: Disposable?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
