@@ -86,7 +86,7 @@ class ViewController: UIViewController {
             .addDisposableTo(disposeBag)
 
         Observable<Int>
-            .interval(1.0, scheduler: MainScheduler.instance)
+            .timer(0.0, period: 1.0, scheduler: MainScheduler.instance)
             .pausable(timerRunning.asObservable())
             .subscribeNext({ seconds in
                 self.refreshTotAndTimer()
@@ -103,8 +103,6 @@ class ViewController: UIViewController {
                 let calendar = NSCalendar.currentCalendar()
                 dateComponents.second = self.timeForNumberOfTots(self.totalNumberOfTots.value)
                 self.targetDate = calendar.dateByAddingComponents(dateComponents, toDate: NSDate.init(), options: [])
-
-                self.refreshTotAndTimer()
 
                 self.scheduleLocalNotification(self.targetDate!)
             }
