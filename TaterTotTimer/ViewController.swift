@@ -103,7 +103,9 @@ class ViewController: UIViewController {
                 let calendar = NSCalendar.currentCalendar()
                 dateComponents.second = self.timeForNumberOfTots(self.totalNumberOfTots.value)
                 self.targetDate = calendar.dateByAddingComponents(dateComponents, toDate: NSDate.init(), options: [])
-                
+
+                self.refreshTotAndTimer()
+
                 self.scheduleLocalNotification(self.targetDate!)
             }
         .addDisposableTo(disposeBag)
