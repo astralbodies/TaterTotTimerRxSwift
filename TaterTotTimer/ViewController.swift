@@ -29,6 +29,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let timerIsNotRunning = timerRunning
+            .asObservable()
+            .map({timerRunning in !timerRunning})
+            .shareReplay(1)
+        
         totalNumberOfTots
             .asObservable()
             .subscribeNext { tots in
@@ -50,11 +55,7 @@ class ViewController: UIViewController {
             }
             .addDisposableTo(disposeBag)
         
-        timerRunning
-            .asObservable()
-            .map {
-                !$0
-            }
+        timerIsNotRunning
             .bindTo(timerFace.rx_hidden)
             .addDisposableTo(disposeBag)
         
@@ -74,11 +75,7 @@ class ViewController: UIViewController {
             .bindTo(startStopButton.rx_title(.Normal))
             .addDisposableTo(disposeBag)
         
-        timerRunning
-            .asObservable()
-            .filter {
-                $0 == false
-            }
+        timerIsNotRunning
             .subscribeNext { value in
                 self.targetDate = nil
                 self.cancelLocalNotifications()
