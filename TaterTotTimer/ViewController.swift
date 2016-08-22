@@ -24,8 +24,6 @@ class ViewController: UIViewController {
     var targetDate: NSDate?
     var degrees = 0.0
     
-    var timerDisposable: Disposable?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -85,7 +83,7 @@ class ViewController: UIViewController {
             .addDisposableTo(disposeBag)
 
         Observable<Int>
-            .interval(1.0, scheduler: MainScheduler.instance)
+            .timer(0.0, period: 0.1, scheduler: MainScheduler.instance)
             .pausable(timerRunning.asObservable())
             .subscribeNext({ seconds in
                 self.refreshTotAndTimer()
@@ -102,7 +100,7 @@ class ViewController: UIViewController {
                 let calendar = NSCalendar.currentCalendar()
                 dateComponents.second = self.timeForNumberOfTots(self.totalNumberOfTots.value)
                 self.targetDate = calendar.dateByAddingComponents(dateComponents, toDate: NSDate.init(), options: [])
-                
+
                 self.scheduleLocalNotification(self.targetDate!)
             }
         .addDisposableTo(disposeBag)
@@ -121,7 +119,7 @@ class ViewController: UIViewController {
         }
         
         degrees += 20
-        totImage.transform = CGAffineTransformMakeRotation(CGFloat(degrees * M_PI/180));
+        totImage.transform = CGAffineTransformMakeRotation(CGFloat(degrees * M_PI/180))
         
         let dateDiff = calendar.dateFromComponents(dateComponents)!
         let dateFormatter = NSDateFormatter()
@@ -133,11 +131,11 @@ class ViewController: UIViewController {
     
     func timeForNumberOfTots(numberOfTots:Int) -> Int {
         if (numberOfTots > 0 && numberOfTots <= 20) {
-            return 22 * 60;
+            return 22 * 60
         } else if (numberOfTots <= 30) {
-            return 24 * 60;
+            return 24 * 60
         } else {
-            return 26 * 60;
+            return 26 * 60
         }
     }
     
